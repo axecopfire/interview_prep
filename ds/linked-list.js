@@ -35,6 +35,10 @@ var LinkedList = class {
 		var temp = this.head;
 		this.head = node;
 		this.head.child = temp;
+		if(this.head.child == null) {
+			this.tail = this.head;
+			return;
+		}
 		this.head.child.prev=this.head;
 	}
 	addMiddle(data, key) {
