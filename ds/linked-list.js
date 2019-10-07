@@ -70,9 +70,9 @@ var LinkedList = class {
 		while(current.key !== key) {
 			current = current.child;
 		}
-		var temp = current;
-		current.child.prev = current.prev;
-		current.prev.child = current.child;
+		var temp = current.child;
+		temp.child.prev = temp.prev;
+		temp.prev.child = temp.child;
 		return temp;
 	}
 }

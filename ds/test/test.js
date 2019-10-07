@@ -85,5 +85,38 @@ describe("LinkedList", function() {
         ll.addMiddle(3, ll.head.child.key).child.key
 			);
 		});
-  });
+	});
+	
+	describe("frontDelete", function() {
+		var ll = new LinkedList();
+		ll.append(0);
+		ll.append(1);
+
+		it("second node should equal first", function () {
+			ll.frontDelete();
+			assert.equal(ll.head.data, 1);
+		})
+	});
+
+	describe("backDelete", function () {
+		var ll = new LinkedList();
+		ll.append(0);
+		ll.append(1);
+		ll.append(2);
+		it("tail should equal next to last node", function () {
+			ll.backDelete();
+			assert.equal(ll.tail.data, 1);
+		});
+	});
+
+	describe("middleDelete", function () {
+		var ll = new LinkedList();
+		ll.append(0);
+		ll.append(1);
+		ll.append(2);
+		it("with 3 nodes head child's data should equal tail's data", function () {
+			ll.middleDelete(ll.head.child.key);
+			assert.equal(ll.head.child.data, ll.tail.data);
+		})
+	});
 });
