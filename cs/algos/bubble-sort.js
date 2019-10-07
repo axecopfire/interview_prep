@@ -7,14 +7,17 @@ function swap (a, x, y) {
 
 function bubbleSort(a) {
 	var isSorted = false;
+	var lastUnsorted = a.length - 1;
 	while(!isSorted) {
 		isSorted = true;
-		for(var i = 0; i < a.length; i ++) {
+
+		for(var i = 0; i < lastUnsorted; i ++) {
 			if(a[i] > a[i + 1]) {
 				swap(a, i, i + 1);
 				isSorted = false;
 			}
 		}
+		lastUnsorted --;
 	}
 	return a;
 }
