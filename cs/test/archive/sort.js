@@ -1,5 +1,5 @@
 var assert = require('assert');
-var algoSort = require('../algos/insert-sort');
+var algoSort = require('../../algos/insert-sort');
 
 // TODOS: check to see if there are unnecesary comparisons happening
 describe('algo sort', function () {
