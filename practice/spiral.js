@@ -1,4 +1,46 @@
 function createSpiral(N) {
+	function createSpiral(N) {
+		var dir = 0,
+			vBool = false,
+			hBool = false,
+			vEdge = N,
+			hEdge = N,
+			h = 0,
+			v = 0,
+			counter = 1,
+			output = [];
+			while(!vBool && !hBool) {
+				
+					if(hEdge) {
+						
+					}
+	
+					// Edge Checks
+					if(h === hEdge - 1) {
+						h--;
+						hEdge--;
+					} else if (h === 0) {
+						h ++;
+						hEdge--;
+					} else if (v === vEdge - 1) {
+						v--;
+						vEdge--;
+					} else if (v === 0) {
+						v++;
+						vEdge--;
+					}
+					
+					
+					// East
+					if(dir === 0 && h < hEdge) {
+						output[v][h] = counter;
+						counter++;
+						h++;
+					}
+					
+					
+				} 
+	}
 	// create a "map" of N arrays
 	// add N place holders in each array
 	// determine the edges
