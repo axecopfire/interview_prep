@@ -36,4 +36,26 @@ function insert(arr, add, pos) {
     prev = temp;
   }
 }
-module.exports = InsertionSort;
+// version 2 
+// Does all operations on original array
+// Is O(N^2) as opposed to O(N^3)
+
+function v2(arr) {
+	for(var i = 0; i < arr.length; i ++) {
+		var temp = arr[i];
+		for(var j = i; j > 0; j--) {
+			if(!arr[j - 1]) { arr[j] = temp; }
+			check = arr[j-1];
+			if(temp <= check) {
+				arr[j - 1] = temp;
+				arr[j] = check;
+			}
+		}
+	}
+	return arr;
+}
+
+var arr = [4, 2, 1, 2];
+console.log(v2(arr));
+
+module.exports = v2;
