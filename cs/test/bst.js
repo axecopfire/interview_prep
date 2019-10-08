@@ -33,12 +33,18 @@ describe("Binary Search Tree", function () {
 		})
 	})
 
-	describe("in order read", function () {
+	describe("creates an array in order", function () {
 		var bst = new BinarySearchTree(10);
 		bst.insert(5);
 		bst.insert(10);
+		bst.insert(15);
+		var arr = bst.arrInOrder();
 		it("should read in preOrder", function () {
-			bst.preOrder()
+			var bool = false;
+			var test = [5, 10, 15];
+			arr.forEach((el, i) => bool = el === test[i] ? true : false);
+
+			assert.equal(bool, true);
 		})
 	})
 
