@@ -34,7 +34,12 @@ describe("Binary Search Tree", function () {
 	})
 
 	describe("in order read", function () {
-
+		var bst = new BinarySearchTree(10);
+		bst.insert(5);
+		bst.insert(10);
+		it("should read in preOrder", function () {
+			bst.preOrder()
+		})
 	})
 
 })

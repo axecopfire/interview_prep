@@ -24,13 +24,23 @@ Node.prototype.insert = function (val) {
 }
 
 Node.prototype.inOrder = function () {
+	var output = [];
 	if(this.left !== null) {
-		this.left.inOrder();
+		output.push(this.left.inOrder());
 	} 
-	console.log(this.data);
+	output.push(this.data);
 	if(this.right !== null) {
-		this.right.inOrder();
+		output.push(this.right.inOrder());
 	}
+	return output;
 }
+
+var bst = new Node(10);
+bst.insert(5);
+bst.insert(15);
+bst.insert(20);
+bst.insert(1);
+
+console.log(bst.inOrder());
 
 module.exports = Node;
