@@ -1,45 +1,59 @@
 function createSpiral(N) {
-	function createSpiral(N) {
-		var dir = 0,
-			vBool = false,
-			hBool = false,
-			vEdge = N,
-			hEdge = N,
-			h = 0,
-			v = 0,
-			counter = 1,
-			output = [];
-			while(!vBool && !hBool) {
-				
-					if(hEdge) {
-						
-					}
 	
-					// Edge Checks
-					if(h === hEdge - 1) {
-						h--;
-						hEdge--;
-					} else if (h === 0) {
-						h ++;
-						hEdge--;
-					} else if (v === vEdge - 1) {
-						v--;
-						vEdge--;
-					} else if (v === 0) {
-						v++;
-						vEdge--;
-					}
-					
-					
-					// East
-					if(dir === 0 && h < hEdge) {
-						output[v][h] = counter;
-						counter++;
-						h++;
-					}
-					
-					
-				} 
+  var dir = 0,
+    vBool = false,
+    hBool = false,
+    vEdge = N,
+    hEdge = N,
+    h = 0,
+    v = 0,
+    counter = 1,
+    output = [];
+    while(!vBool && !hBool) {
+      
+        if(hEdge) {
+          hBool = true;
+        }
+
+        // Edge Checks
+          // E
+        if(h === hEdge - 1) {
+          h--;
+          hEdge--;
+          dir++;
+          // W
+        } else if (h === 0) {
+          h ++;
+          hEdge--;
+          dir++;
+          // S
+        } else if (v === vEdge - 1) {
+          v--;
+          vEdge--;
+          dir++;
+          // N
+        } else if (v === 0) {
+          v++;
+          vEdge--;
+          dir = 0;
+        }
+        
+        
+        // East
+        if(dir === 0 && h < hEdge) {
+          output[v][h] = counter;
+          counter++;
+          h++;
+        }
+        
+       	/*
+		E: v, h++
+		S: v++, h
+		W: v, h--
+		N: v--, h
+	*/ 
+        
+      } 
 	}
 	// create a "map" of N arrays
 	// add N place holders in each array
@@ -75,6 +89,3 @@ function createSpiral(N) {
 	
 	*/
 	
-	
-	
-	}
