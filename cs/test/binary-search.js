@@ -7,4 +7,10 @@ describe("Binary Search", function () {
 	it("should find item at place", function () {
 		assert.equal(2, BinSearch(arr, 10));
 	})
+	it("did not find item in array", function () {
+		assert.equal(-1, BinSearch(arr, 17));
+	})
+	it("could not find item because out of array", function () {
+		assert.equal(-1, BinSearch(arr, 31));
+	})
 })
