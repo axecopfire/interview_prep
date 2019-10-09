@@ -1,5 +1,4 @@
 function createSpiral(N) {
-	
   var dir = 0,
     vBool = false,
     hBool = false,
@@ -9,65 +8,62 @@ function createSpiral(N) {
     v = 0,
     counter = 1,
     output = [];
-    while(!vBool && !hBool) {
-      
-        if(hEdge) {
-          hBool = true;
-        }
+  while (!vBool && !hBool) {
+    if (hEdge) {
+      hBool = true;
+    }
 
-        // Edge Checks
-          // E
-        if(h === hEdge - 1) {
-          h--;
-          hEdge--;
-          dir++;
-          // W
-        } else if (h === 0) {
-          h ++;
-          hEdge--;
-          dir++;
-          // S
-        } else if (v === vEdge - 1) {
-          v--;
-          vEdge--;
-          dir++;
-          // N
-        } else if (v === 0) {
-          v++;
-          vEdge--;
-          dir = 0;
-        }
-        
-        
-        // East
-        if(dir === 0 && h < hEdge) {
-          output[v][h] = counter;
-          counter++;
-          h++;
-        }
-        
-       	/*
+    // Edge Checks
+    // E
+    if (h === hEdge - 1) {
+      h--;
+      hEdge--;
+      dir++;
+      // W
+    } else if (h === 0) {
+      h++;
+      hEdge--;
+      dir++;
+      // S
+    } else if (v === vEdge - 1) {
+      v--;
+      vEdge--;
+      dir++;
+      // N
+    } else if (v === 0) {
+      v++;
+      vEdge--;
+      dir = 0;
+    }
+
+    // East
+    if (dir === 0 && h < hEdge) {
+      output[v][h] = counter;
+      counter++;
+      h++;
+    }
+
+    /*
 		E: v, h++
 		S: v++, h
 		W: v, h--
 		N: v--, h
-	*/ 
-        
-      } 
-	}
-	// create a "map" of N arrays
-	// add N place holders in each array
-	// determine the edges
-		// loop through the first array and add i
-		// once you reach the length
-			// go to the second array and add i + 1
-			// continue until you've reached N array
-			// then loop back until you've reached the beginning of that array
-			// then go up an array and go as far as possible
-	// decrement a position from the edges
-	
-	// pivot
-	/*
+	*/
+  }
+}
+// create a "map" of N arrays
+// add N place holders in each array
+// determine the edges
+// loop through the first array and add i
+// once you reach the length
+// go to the second array and add i + 1
+// continue until you've reached N array
+// then loop back until you've reached the beginning of that array
+// then go up an array and go as far as possible
+// decrement a position from the edges
+
+// pivot
+/*
 	// once I reach an edge I want to switch increment vs decrement
 	for i < vEdge; i ++; (vertical)
 		for j < hEdge; j ++ (horizontal)
@@ -88,4 +84,3 @@ function createSpiral(N) {
 		done
 	
 	*/
-	

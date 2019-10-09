@@ -1,5 +1,5 @@
 var assert = require('assert');
-var BinarySearchTree = require('../algos/binary-search-tree');
+var BinarySearchTree = require('../../algos/binary-search-tree');
 
 describe("Binary Search Tree", function () {
 	describe("init", function () {

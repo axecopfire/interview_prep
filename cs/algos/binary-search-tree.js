@@ -26,7 +26,7 @@ Node.prototype.insert = function(val) {
 Node.prototype.arrInOrder = function() {
   var output = [];
 
-  if (this.left === null || this.right === null) {
+  if (this.left === null && this.right === null) {
     return this.data;
   }
 
@@ -40,5 +40,11 @@ Node.prototype.arrInOrder = function() {
 
   return output;
 };
+
+Node.prototype.flatten = function (arr) {
+  return arr.reduce((flat, toFlatten) => {
+    return flat.concat(Array.isArray(toFlatten) ? this.flatten(toFlatten) : toFlatten);
+  }, []);
+}
 
 module.exports = Node;
