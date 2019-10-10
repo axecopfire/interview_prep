@@ -1,13 +1,20 @@
 
-function hashFunction (ds) {
-	this.ds = ds;
+function HashFunction (length = 10) {
+	this._ds = new Array(length);
 }
-hashFunction.prototype.insert = function (name) {
-	var val = name.charCodeAt() % this.ds.length;
-	if(!ds[val]) {
-		ds[val] = name;
+HashFunction.prototype.insert = function (name) {
+	var val = name.charCodeAt() % this._ds.length;
+	if(!this._ds[val]) {
+		this._ds[val] = name;
+		return name + " added into base array";
 	}
-	
+	if(this._ds[val] && !this._ds[val].head) {
+		var tmp = this._ds[val];
+		this._ds[val] = new LinkedList();
+		this._ds[val].append(tmp);
+	}
+	this._ds[val].append(name);
+	return name + " added to linked list";
 }
 
 function LinkedList () {
@@ -24,11 +31,4 @@ LinkedList.prototype.append = function (data, _node = this.head) {
 	this.append(data, _node.child);
 }
 
-var ll = new LinkedList();
-ll.append(10);
-ll.append(20);
-
-var arr = [2,3];
-arr[1] = new LinkedList();
-arr[1].append(23);
-console.log(arr[1]);
+module.exports = HashFunction;
