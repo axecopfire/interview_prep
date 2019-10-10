@@ -1,63 +1,48 @@
-import { tmpdir } from "os";
+// Stolen from:https://medium.com/javascript-in-plain-english/javascript-merge-sort-3205891ac060
+// Need to revisit
 
-function MergeSort(arr) {
-	this.run(arr, [], 0, arr.length - 1);
-}
-MergeSort.prototype.run = function (arr, temp, start, end) {
-	if(start >= end) {
-		return;
-	}
+// Merge Sort Implentation (Recursion)
+function mergeSort (unsortedArray) {
+  // No need to sort the array if the array only has one element or empty
+  if (unsortedArray.length <= 1) {
+    return unsortedArray;
+  }
+  // In order to divide the array in half, we need to figure out the middle
+  const middle = Math.floor(unsortedArray.length / 2);
 
-	
-	var middle = Math.floor((end + start) / 2);
-	// console.log(start, middle, end)
-	this.run(arr, temp, start, middle);
-	this.run(arr, temp, middle + 1, end);
-	this.stitch(arr, temp, start, end);
-}
+  // This is where we will be dividing the array into left and right
+  const left = unsortedArray.slice(0, middle);
+  const right = unsortedArray.slice(middle);
 
-MergeSort.prototype.stitch = function (arr, temp, start, end) {
-	var middle = Math.floor((end + start) / 2);
-	var rStart = middle + 1;
-	var size = end - start + 1;
-
-	var lIndex = start;
-	var rIndex = rStart;
-	var index = lIndex;
-
-	console.log("\n----\n","out of loop", { lIndex, middle, rIndex, end });
-	while(lIndex <= middle && rIndex <= end) {
-		// console.log({lindex:arr[lIndex], rindex:arr[rIndex]});
-		if(arr[lIndex] <= arr[rIndex]) {
-			temp[index] = arr[lIndex];
-			lIndex++;
-		}
-		else {
-			// console.log("I'm right incrementing!", arr[rIndex])
-			temp[index] = (arr[rIndex]);
-			rIndex++;
-		}
-		index++;
-		// console.log(temp);
-	}
-
-	// console.log("right slice",arr.slice(rIndex, end), rIndex, end);
-	// var copy = arr.slice(lIndex, middle + 1).length > 0 ? arr.slice(lIndex, middle + 1) : arr.slice(rIndex, end);
-
-	var copy = arr.slice(lIndex, middle - lIndex + 1)
-	temp = temp.concat(copy);
-	copy = arr.slice(rIndex, end - rIndex + 1);
-	temp = temp.concat(copy);
-	console.log("before",arr,temp);
-	arr.splice(start, size, temp);
-	for(var i = 0; i < 5; i ++) {
-		arr.splice(start + i, 1, temp[i]);
-	}
-	console.log("after",arr,temp);
-
-	// console.log("left loop", {temp, index}, copy);
-	
+  // Using recursion to combine the left and right
+  return merge(
+    mergeSort(left), mergeSort(right)
+  );
 }
 
-var arr = [10, 0, 8, 2, 50];
-var ms = new MergeSort(arr);
+// Merge the two arrays: left and right
+function merge (left, right) {
+  let resultArray = [], leftIndex = 0, rightIndex = 0;
+
+  // We will concatenate values into the resultArray in order
+  while (leftIndex < left.length && rightIndex < right.length) {
+    if (left[leftIndex] < right[rightIndex]) {
+      resultArray.push(left[leftIndex]);
+      leftIndex++; // move left array cursor
+    } else {
+      resultArray.push(right[rightIndex]);
+      rightIndex++; // move right array cursor
+    }
+  }
+
+  // We need to concat here because there will be one element remaining
+  // from either left OR the right
+  return resultArray
+          .concat(left.slice(leftIndex))
+          .concat(right.slice(rightIndex));
+}
+
+var arr = [9, 20, 15, 5, 30, 1];
+console.log(mergeSort(arr));
+
+module.exports = mergeSort;

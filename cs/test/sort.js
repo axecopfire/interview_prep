@@ -1,15 +1,14 @@
 var assert = require('assert');
-var algoSort = require('../../algos/insert-sort');
+var algoSort = require('../algos/merge.js');
 
 // TODOS: check to see if there are unnecesary comparisons happening
 describe('algo sort', function () {
 	it("ascending order", function() {
 		var arr = [9, 20, 15, 5, 30, 1];
-		var tmp = arr;
 		var bool = true;
-		algoSort(arr);
-		tmp.forEach((el, i) => {
-			if(el > tmp[i + 1]) {
+		var test = algoSort(arr);
+		test.forEach((el, i) => {
+			if(el > test[i + 1]) {
 				bool = false;
 			}
 		});
