@@ -1,5 +1,6 @@
 function createSpiral(N) {
 
+	if(N < 1 || typeof N !== "number" ) return [];
 	var mem = {
 		input: N,
 		target: N**2,
@@ -9,7 +10,7 @@ function createSpiral(N) {
 		output: [],
 		vCheckIn: false,
 		hCheckIn: false,
-		vInEdge: 0,
+		vInEdge: 1,
 		hInEdge: 0,
 		vOutEdge: N - 1,
 		hOutEdge: N - 1,
@@ -90,14 +91,14 @@ function createSpiral(N) {
 		}
 
 		if(mem.counter === mem.target) {
-			// mem.output[mem.vOutEdge][mem.hOutEdge] = mem.counter;
+			mem.output[v][h] = mem.counter;
 			return;
 		}
 			
 		run(h,v, mem);
 }
 
-console.log(createSpiral(3));
+console.log(createSpiral(4));
 
 
 /*
