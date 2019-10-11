@@ -1,5 +1,5 @@
 var assert = require("assert");
-var hashing = require("../algos/hashing");
+var hashing = require("../../algos/hashing");
 
 describe("hash tables", function () {
 	describe("create", function () {

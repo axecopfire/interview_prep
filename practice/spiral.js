@@ -1,86 +1,109 @@
 function createSpiral(N) {
-  var dir = 0,
-    vBool = false,
-    hBool = false,
-    vEdge = N,
-    hEdge = N,
-    h = 0,
-    v = 0,
-    counter = 1,
-    output = [];
-  while (!vBool && !hBool) {
-    if (hEdge) {
-      hBool = true;
-    }
 
-    // Edge Checks
-    // E
-    if (h === hEdge - 1) {
-      h--;
-      hEdge--;
-      dir++;
-      // W
-    } else if (h === 0) {
-      h++;
-      hEdge--;
-      dir++;
-      // S
-    } else if (v === vEdge - 1) {
-      v--;
-      vEdge--;
-      dir++;
-      // N
-    } else if (v === 0) {
-      v++;
-      vEdge--;
-      dir = 0;
-    }
-
-    // East
-    if (dir === 0 && h < hEdge) {
-      output[v][h] = counter;
-      counter++;
-      h++;
-    }
-
-    /*
-		E: v, h++
-		S: v++, h
-		W: v, h--
-		N: v--, h
-	*/
-  }
-}
-// create a "map" of N arrays
-// add N place holders in each array
-// determine the edges
-// loop through the first array and add i
-// once you reach the length
-// go to the second array and add i + 1
-// continue until you've reached N array
-// then loop back until you've reached the beginning of that array
-// then go up an array and go as far as possible
-// decrement a position from the edges
-
-// pivot
-/*
-	// once I reach an edge I want to switch increment vs decrement
-	for i < vEdge; i ++; (vertical)
-		for j < hEdge; j ++ (horizontal)
-		[1,2,3] (arr[j]) until hEdge
-		pivot
-			need to traverse using i
-			j needs to start minusing
-		
-		90deg pivot (edge arr[N])
-		[,,4]
-		[,,5]
-		90deg pivot
-		[7,6,5]
-		90deg pivot
-		[8,,4]
-		90deg
-		[8,9,4]
-		done
+	var mem = {
+		input: N,
+		target: N**2,
+		dirArr: ['E', 'S', 'W', 'N'],
+		dirCount: 0,
+		counter: 1,
+		output: [],
+		vCheckIn: false,
+		hCheckIn: false,
+		vInEdge: 0,
+		hInEdge: 0,
+		vOutEdge: N - 1,
+		hOutEdge: N - 1,
+	};
 	
-	*/
+	var h = 0,
+		v = 0;
+	
+		for(var i = 0; i < N; i ++) {
+			mem.output.push(new Array(N).fill(0));
+		}
+		
+		run(h, v, mem);
+		return mem.output;
+	}
+	
+	function run(h, v, mem) {
+		// console.log(h, mem.hEdge, mem.dirCount)
+		// if on initial East change dir thats it
+		if(h === mem.input - 1 && v === 0) {
+			mem.dirCount = mem.dirCount === 3 ? 0 : mem.dirCount + 1;
+			mem.hCheckIn = true;
+		}
+		// if on initial South change dir thats it
+		else if(h === mem.input - 1 && v === mem.input - 1) {
+			mem.dirCount = mem.dirCount === 3 ? 0 : mem.dirCount + 1;
+			mem.vCheckIn = true;
+			mem.vOutEdge--;
+		}
+		// check inner edges when supposed to
+		else if(mem.hCheckIn && h === mem.hInEdge) {
+			mem.dirCount = mem.dirCount === 3 ? 0 : mem.dirCount + 1;
+			mem.hCheckIn = false;
+			mem.hInEdge ++;
+		}
+		else if(mem.vCheckIn && v === mem.vInEdge) {
+			mem.dirCount = mem.dirCount === 3 ? 0 : mem.dirCount + 1;
+			mem.vCheckIn = false;
+			mem.vInEdge++;
+		}
+
+		// Check outter edges when supposed to
+		else if(h === mem.hOutEdge && !mem.hCheckIn) {
+				mem.dirCount = mem.dirCount === 3 ? 0 : mem.dirCount + 1;
+				mem.hOutEdge --;
+				mem.hCheckIn = true;
+		} 
+		else if(v === mem.vOutEdge && !mem.vCheckIn) {
+				mem.dirCount = mem.dirCount === 3 ? 0 : mem.dirCount + 1;
+				mem.vOutEdge --;
+				mem.vCheckIn = true;
+		}
+
+		
+		mem.output[v][h] = mem.counter;
+		mem.counter++;
+		console.log(
+			{
+			// 	v: 
+			// 	{v: v, bool: mem.vCheckIn, innerEdge: mem.vInEdge, outterEdge: mem.vOutEdge},
+			// h: 
+			// {h: h, bool: mem.hCheckIn, innerEdge: mem.hInEdge, outterEdge: mem.hOutEdge},
+			output: {dir: mem.dirArr[mem.dirCount],}, output:mem.output})
+		
+		switch(mem.dirArr[mem.dirCount]) {
+			case "E":
+				h++;
+				break;
+			case "S":
+				v++;
+				break;
+			case "W":
+				h--;
+				break;
+			case "N":
+				v--;
+				break;
+		}
+
+		if(mem.counter === mem.target) {
+			// mem.output[mem.vOutEdge][mem.hOutEdge] = mem.counter;
+			return;
+		}
+			
+		run(h,v, mem);
+}
+
+console.log(createSpiral(3));
+
+
+/*
+	E: v, h++
+	S: v++, h
+	W: v, h--
+	N: v--, h
+*/
+	
