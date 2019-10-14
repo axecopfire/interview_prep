@@ -1,5 +1,4 @@
 // Stolen from:https://medium.com/javascript-in-plain-english/javascript-merge-sort-3205891ac060
-// Need to revisit
 
 // Merge Sort Implentation (Recursion)
 function mergeSort (unsortedArray) {
