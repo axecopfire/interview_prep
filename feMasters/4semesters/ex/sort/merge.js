@@ -6,6 +6,16 @@ return merge(
 
 I understand what it does and why you need it. I just couldn't figure out the symptoms from looking at the console. I guess the symptom was that it was resetting everytime on the merge and there was no maintaining of history.
 
+In the mergeSort function I also returned ()`return;`) nothing. I assume I would have been able to trouble shoot that easier if I had a better console to work with.
+
+I love this implementation that Brian uses for stitching
+
+while(left.length && right.length)
+and using the shift array method
+
+Somethings sweet
+  output.concat(left, right)
+  [...output, ...left, ...right]
 */
 function mergeSort(arr) {
   if(arr.length === 1) {
