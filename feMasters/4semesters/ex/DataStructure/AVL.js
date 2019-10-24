@@ -1,6 +1,5 @@
 function Node (value) {
     this.value = value;
-    this.parent = null;
     this.left = null;
     this.right = null;
 } 
@@ -9,7 +8,7 @@ function Tree () {
     this.root = null;
 }
 
-Tree.prototype.add = function (value, root) {
+Tree.prototype.add = function (value) {
     var node = new Node(value);
     if(!this.root) { this.root = node; return; }
     this.addHelper(this.root, node);
@@ -21,28 +20,29 @@ Tree.prototype.toObject = function() {
 
 
 Tree.prototype.addHelper = function (root, node) {
-    // console.log("balance factor: ", this.balanceFactor(root))
     if(root === null) {
         root = node;
     } else if(node.value < root.value) {
         root.left = this.addHelper(root.left, node);
         if(root.left !== null && this.balanceFactor(root) > 1) {
             if(node.value < root.left.value) {
-                root = rotationLL(root);
+                root = this.rotationLL(root);
             } else {
-                root = rotationLR(root);
+                root = this.rotationLR(root);
             }
         }
-    } else if (node.value > root.value) {
+    } else if (node.value >= root.value) {
         root.right = this.addHelper(root.right, node);
+
         if(root.right !== null && this.balanceFactor(root) < -1) {
             if(node.value > root.right.value) {
-                root = rotationRR(root);
+                root = this.rotationRR(root);
             } else {
-                root = rotationRL(root);
+                root = this.rotationRL(root);
             }
         } 
     }
+    // console.log(root)
     return root;
 }
 
@@ -56,28 +56,29 @@ Tree.prototype.balanceFactor = function (node) {
     return (this.height(node.left) - this.height(node.right));
 }
 
-function rotationLL(node) {
-    console.log(node);
+Tree.prototype.rotationLL = function (node) {
     let tmp = node.left;
     node.left = tmp.right;
     tmp.right = node;
+    if(this.root === node) this.root = tmp;
     return tmp;
 }
 
-function rotationRR(node) {
+Tree.prototype.rotationRR = function (node) {
 
     let tmp = node.right;
     node.right = tmp.left;
     tmp.left = node;
+    if(this.root === node) this.root = tmp;
     return tmp;
 }
 
-function rotationLR(node) {
+Tree.prototype.rotationLR = function (node) {
     node.left = rotationRR(node.left);
     return rotationLL(node);
 }
 
-function rotationRL(node) {
+Tree.prototype.rotationRL = function (node) {
     node.right = rotationLL(node.right);
     return rotationRR(node);
 }
