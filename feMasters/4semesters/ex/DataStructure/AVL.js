@@ -9,48 +9,84 @@ function Tree () {
     this.root = null;
 }
 
-Tree.prototype.add = function (value, root = this.root) {
+Tree.prototype.add = function (value, root) {
     var node = new Node(value);
-    if(!root) { this.root = node; return; }
-    if(value < root.value) {
-        if(root.left) {
-            this.add(value, root.left);
-        } else {
-            root.left = node;
-            root.left.parent = root;
-            return this.balance(root.left);
+    if(!this.root) { this.root = node; return; }
+    this.addHelper(this.root, node);
+}
+
+Tree.prototype.toObject = function() {
+    return JSON.stringify(this.root)
+}
+
+
+Tree.prototype.addHelper = function (root, node) {
+    // console.log("balance factor: ", this.balanceFactor(root))
+    if(root === null) {
+        root = node;
+    } else if(node.value < root.value) {
+        root.left = this.addHelper(root.left, node);
+        if(root.left !== null && this.balanceFactor(root) > 1) {
+            if(node.value < root.left.value) {
+                root = rotationLL(root);
+            } else {
+                root = rotationLR(root);
+            }
         }
-    } else {
-        if(root.right) {
-            this.add(value, root.right);
-        } else {
-            root.right = node;
-            root.right.parent = root;
-            return this.balance(root.right);
-        }
+    } else if (node.value > root.value) {
+        root.right = this.addHelper(root.right, node);
+        if(root.right !== null && this.balanceFactor(root) < -1) {
+            if(node.value > root.right.value) {
+                root = rotationRR(root);
+            } else {
+                root = rotationRL(root);
+            }
+        } 
     }
+    return root;
 }
 
 Tree.prototype.height = function (node = this.root) {
-    // if(!this.root) return -1;
     if(node === null) return 0;
 
-    return (
-        (this.height(node.left) + 1)
-        //  - 
-        // (this.height(node.right) + 1)
-        ) 
+    return (Math.max(this.height(node.left), this.height(node.right)) + 1);
 }
-Tree.prototype.balance = function (node) {
 
-   console.log(this.height(node.parent));
+Tree.prototype.balanceFactor = function (node) {
+    return (this.height(node.left) - this.height(node.right));
+}
+
+function rotationLL(node) {
+    console.log(node);
+    let tmp = node.left;
+    node.left = tmp.right;
+    tmp.right = node;
+    return tmp;
+}
+
+function rotationRR(node) {
+
+    let tmp = node.right;
+    node.right = tmp.left;
+    tmp.left = node;
+    return tmp;
+}
+
+function rotationLR(node) {
+    node.left = rotationRR(node.left);
+    return rotationLL(node);
+}
+
+function rotationRL(node) {
+    node.right = rotationLL(node.right);
+    return rotationRR(node);
 }
 
 var avl = new Tree();
-avl.add(10)
-avl.add(20)
-avl.add(15)
-avl.add(20);
+avl.add(10);
+avl.add(15);
+avl.add(30);
+console.log(avl);
 
 
 
