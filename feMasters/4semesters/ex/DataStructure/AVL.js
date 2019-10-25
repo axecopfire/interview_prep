@@ -1,6 +1,3 @@
-// Very interesting way of working with AVL Tree. [Tutorial Point (had to change some stuff)](https://www.tutorialspoint.com/Inserting-a-node-in-a-Javascript-AVL-Tree)
-// Bholt's is more efficient but less readable. It stores the height value in each node. [Brian's Codepen](https://codepen.io/btholt/pen/rxLOOp?editors=001)
-
 function Node (value) {
     this.value = value;
     this.left = null;
