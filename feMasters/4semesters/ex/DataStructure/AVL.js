@@ -10,7 +10,6 @@ function Tree () {
 
 Tree.prototype.add = function (value) {
     var node = new Node(value);
-    if(!this.root) { this.root = node; return; }
     this.addHelper(this.root, node);
 }
 
