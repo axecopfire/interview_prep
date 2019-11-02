@@ -16,3 +16,8 @@
 
 ## Resources
 - [Big O Cheatsheet](bigocheatsheet.com)
+
+
+
+## Part 2 
+- [Main Link](https://btholt.github.io/four-semesters-of-cs-part-two/)
