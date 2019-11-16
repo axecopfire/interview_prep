@@ -1,4 +1,7 @@
-// Crappy implementation... doesn't work
+// Crappy implementation...works for most checks
+// checkNeighbors should return a testable data structure instead of firing so many side effects
+// rows and columns are mixed up, and how to do directionality in array of arrays
+//
 
 /**
  * @param {Array} pos [row, col]
@@ -123,12 +126,6 @@ function checkNeighbors (maze, curr, graph, queue) {
   return false;
 }
 
-const fourxfour = [
-  [2, 0, 0, 0],
-  [0, 1, 1, 0],
-  [0, 1, 0, 2],
-  [0, 1, 0, 0]
-];
 
 const twoxtwo = [
   [2,0],
@@ -140,6 +137,13 @@ const threexthree = [
   [0, 0, 0],
   [0, 0, 2]
 ]
+
+const fourxfour = [
+  [2, 0, 0, 0],
+  [0, 1, 1, 0],
+  [0, 1, 0, 2],
+  [0, 1, 0, 0]
+];
 
 const sixBySix = [
   [0, 0, 0, 0, 0, 0],
@@ -161,8 +165,8 @@ const eightByEight = [
   [0, 0, 0, 0, 0, 0, 1, 2]
 ];
 
-console.log(findShortestPathLength(sixBySix, [1, 1], [2, 5]) + " Should = 7")
-console.log(findShortestPathLength(twoxtwo, [0,0], [1,1]) + " Should = 2")
+// console.log(findShortestPathLength(twoxtwo, [0,0], [1,1]) + " Should = 2")
 console.log(findShortestPathLength(threexthree, [0,0], [2,2]) + " Should = 4");
-console.log(findShortestPathLength(fourxfour, [0, 0], [3, 3])+ " Should = 6");
-console.log(findShortestPathLength(eightByEight, [7, 1], [7, 7]) + " Should = 16")
+// console.log(findShortestPathLength(fourxfour, [0, 0], [3, 3])+ " Should = 6");
+// console.log(findShortestPathLength(sixBySix, [1, 1], [2, 5]) + " Should = 7")
+// console.log(findShortestPathLength(eightByEight, [7, 1], [7, 7]) + " Should = 16")
