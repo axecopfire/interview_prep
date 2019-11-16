@@ -1,3 +1,5 @@
+// Crappy implementation... doesn't work
+
 /**
  * @param {Array} pos [row, col]
  * @param {Object} dir {north, east, south, west}
