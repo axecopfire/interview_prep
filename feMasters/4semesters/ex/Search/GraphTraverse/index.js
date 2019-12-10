@@ -1,6 +1,7 @@
 // Bad practice to transform the input data by adding the visited data. However I'm currently lazy
   // Another idea would be to create an array of visited ids and chreate a check to loop through to see if they're there
   // Another idea could be to make a bloom filter or some type of hash table to make that check quicker
+// Doesn't pass all checks. But I'm having issues figuring out the problem
 const { getUser, getMe } = require('./Data_Methods');
 const list = require('./data');
 
@@ -19,16 +20,18 @@ const findMostCommonTitle = (myId, list, degreesOfSeparation) => {
   let mostTitles = [];
   let init = getUser(myId);
   init.deg = 0;
-  let queue = []
+  init.seen = 1;
+  let globalSeen = [];
+  let queue = [];
   queue.push(init);
 
   while(queue.length) {
     let currEmp = queue.shift();
     
-    if(currEmp.visited) {
-      continue;
-    }
+    if(currEmp.visited) { continue; }
+
     currEmp.visited = 1;
+
     processEmployee(currEmp, mostTitles);
     if(currEmp.deg < degreesOfSeparation) {
       updateQueueWConns(queue, currEmp);
@@ -42,8 +45,9 @@ function updateQueueWConns(queue, currEmp) {
 
   for(var i = 0; i < connections.length; i++) {
     let con = getUser(connections[i]);
-    if(con.visited) {  continue; }
+    if(con.visited || con.seen) {  continue; }
     con.deg = currEmp.deg + 1;
+    con.seen = 1;
     queue.push(con);
   }
   return queue;
@@ -69,8 +73,8 @@ function findGreatest (mostTitles) {
     count: 0,
     title: ""
   }
+
   while(i < mostTitles.length) {
-    // console.log(mostTitles[i])
     if(mostTitles[i].count > highest.count) {
       highest.count = mostTitles[i].count;
       highest.title = mostTitles[i].title;
@@ -80,7 +84,7 @@ function findGreatest (mostTitles) {
   if(highest.count === 0) {
     return "error: could not find any titles";
   }
-  return `title: ${highest.title} count : ${highest.count}`;
+  return `title: ${highest.title} count, : ${highest.count}`;
 }
 
 // TESTS
@@ -89,8 +93,8 @@ const test2 = findMostCommonTitle("11", list, 3);
 const test3 = findMostCommonTitle("306", list, 4);
 const test4 = findMostCommonTitle("1", list, 7);
 
-// console.log(test1, "should be Librarian");
-// console.log(test2, "should be Graphic Designer");
+console.log(test1, "should be Librarian");
+console.log(test2, "should be Graphic Designer");
 console.log(test3, "should be Environmental Tech");
-// console.log(test4, "should be Geological Engineer");
+console.log(test4, "should be Geological Engineer");
 
